@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.freefair.lombok' version "8.10"
+}
+
+compileJava.options.encoding = "UTF-8"
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'application'
+    apply plugin: 'io.freefair.lombok'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    group = "ru.mirea.${rootProject.name}"
+
+    wrapper {
+        gradleVersion = '8.9'
+        distributionType = Wrapper.DistributionType.ALL
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
+        implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
+        implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-api', version: '2.8.4'
+
+        implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.2'
+
+        implementation group: 'commons-codec', name: 'commons-codec', version: '1.17.1'
+
+        implementation group: 'com.github.f4b6a3',  name: 'uuid-creator', version: '5.3.7'
+
+        implementation 'org.jetbrains:annotations:26.0.1'
+    }
+}

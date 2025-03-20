@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'prometheus'
+
+include 'producer-service'
+include 'exporter'
+include 'consumer-service'
+

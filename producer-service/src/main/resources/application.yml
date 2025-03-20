@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: "producer-service"
+  kafka:
+    bootstrap-servers: kafka:29092
+    consumer:
+      group-id: group-id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+metrics:
+  api-url: "http://victoria-metrics:8428/api/v1/write"
+  token: "token"
+  group: "test-group"
+  metrics-exporter-enabled: false

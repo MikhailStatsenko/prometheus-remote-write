@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '3.4.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'ru.mirea.prometheus.producer-service'
+
+application {
+    mainClass.set("ru.mirea.prometheus.service.Producer")
+}
+
+bootJar {
+    archiveBaseName = 'producer-service'
+    archiveVersion = '1.0'
+}
+
+jar {
+    enabled = false
+}
+
+dependencies {
+    implementation project(':exporter')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.14.5'
+
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
