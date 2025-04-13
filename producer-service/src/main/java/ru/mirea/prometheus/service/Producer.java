@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
