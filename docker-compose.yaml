@@ -1,6 +1,17 @@
-version: '3.8'
-
 services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppassword
+    ports:
+      - "5555:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   victoria-metrics:
     image: victoriametrics/victoria-metrics
     container_name: victoria-metrics
@@ -77,6 +88,7 @@ services:
     depends_on:
       - kafka
       - kafka-init
+      - timescaledb
     deploy:
       replicas: 3
     environment:
@@ -85,3 +97,4 @@ services:
 volumes:
   vm-data:
   grafana-data:
+  postgres-data:

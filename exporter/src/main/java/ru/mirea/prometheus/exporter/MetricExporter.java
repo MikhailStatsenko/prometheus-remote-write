@@ -5,9 +5,9 @@ import io.prometheus.metrics.model.registry.PrometheusScrapeRequest;
 import io.prometheus.metrics.model.snapshots.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.function.TriFunction;
-import ru.mirea.prometheus.exporter.RemoteWriteRequest.TimeSeries;
 import ru.mirea.prometheus.exporter.RemoteWriteRequest.Label;
 import ru.mirea.prometheus.exporter.RemoteWriteRequest.Sample;
+import ru.mirea.prometheus.exporter.RemoteWriteRequest.TimeSeries;
 import ru.mirea.prometheus.exporter.RemoteWriteRequest.WriteRequest;
 
 import java.time.OffsetDateTime;
@@ -15,7 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MetricExporter implements AutoCloseable {
@@ -73,7 +76,19 @@ public class MetricExporter implements AutoCloseable {
     }
 
     private void sendMetrics() {
+//        Runtime runtime = Runtime.getRuntime();
+//        runtime.gc();
+//        long usedMemoryBefore = runtime.totalMemory() - runtime.freeMemory();
+//
+//        long startTime = System.nanoTime();
         List<TimeSeries> metrics = collectMetrics();
+//        long durationNs = System.nanoTime() - startTime;
+//
+//        long usedMemoryAfter = runtime.totalMemory() - runtime.freeMemory();
+//        long memoryUsed = usedMemoryAfter - usedMemoryBefore;
+//        log.info("Время выполнения: {} мс", durationNs / 1_000_000.0);
+//        log.info("Потребляемая память: {} байт", memoryUsed);
+
         WriteRequest.Builder writeRequest = WriteRequest.newBuilder();
 
         for (TimeSeries timeSeries : metrics) {

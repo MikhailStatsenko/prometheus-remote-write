@@ -1,6 +1,17 @@
 spring:
   application:
-    name: "producer-service"
+    name: "consumer-service"
+  datasource:
+    url: jdbc:postgresql://timescaledb:5432/appdb
+    username: appuser
+    password: apppassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   kafka:
     bootstrap-servers: kafka:29092
     consumer:
